@@ -1,16 +1,19 @@
 from unittest import TestCase
-from .dominio import Lance, Leilao, Usuario
+
+from src.leilao.dominio import Leilao, Usuario, Lance
+
+
 
 class TestLeilao(TestCase):
 
     def setUp(self):
-        self.gui = Usuario('Gui')
+        self.gui = Usuario('Gui', 500)
         self.lance_do_gui = Lance(self.gui, 150)
         self.leilao = Leilao('Celular')
 
 
     def teste_retorna_maior_menor_valor_adicionado_crescente(self):
-        yuri = Usuario('Yuri')
+        yuri = Usuario('Yuri', 500)
 
         lance_do_yuri = Lance(yuri, 100)
        
@@ -27,7 +30,7 @@ class TestLeilao(TestCase):
     
     def teste_nao_deve_permitir_propor_um_lance_em_ordem_descrecente(self):
         with self.assertRaises(ValueError):
-            yuri = Usuario('Yuri')
+            yuri = Usuario('Yuri', 500)
 
             lance_do_yuri = Lance(yuri, 100.0)
             self.leilao.propoe(self.lance_do_gui)
@@ -42,8 +45,8 @@ class TestLeilao(TestCase):
         self.assertEqual(150, self.leilao.menor_lance)
 
     def teste_retorna_maior_menor_valor_adicionado_com_tres_lances(self):
-        yuri = Usuario('Yuri')
-        fer = Usuario('Fer')
+        yuri = Usuario('Yuri', 500)
+        fer = Usuario('Fer', 500)
 
         lance_do_yuri = Lance(yuri, 100)
         lance_do_fer = Lance(fer, 200)
@@ -64,7 +67,7 @@ class TestLeilao(TestCase):
         self.assertEqual(1, quantidade_de_lances_recebidos)
 
     def test_deve_permitir_propor_um_lance_caso_o_ultimo_usuario_seja_diferente(self):
-        yuri = Usuario('Yuri')
+        yuri = Usuario('Yuri', 500)
         lance_do_yuri = Lance(yuri,200.0)
         
         self.leilao.propoe(self.lance_do_gui)
