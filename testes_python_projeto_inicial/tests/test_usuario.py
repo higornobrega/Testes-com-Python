@@ -1,3 +1,4 @@
+from src.leilao.excecoes import LanceInvalido
 from _pytest.fixtures import fixture
 from src.leilao.dominio import Leilao, Usuario
 import pytest
@@ -17,7 +18,7 @@ def test_deve_subtrair_o_valor_da_carteira_quando_este_propor_um_lance(vini, lei
     assert vini.carteira == 50.0
 
 def test_lance_maior_que_o_valor_da_carteira(vini, leilao):
-    with pytest.raises(ValueError):
+    with pytest.raises(LanceInvalido):
         vini.propor_lance(leilao, 150.0)
 
    
