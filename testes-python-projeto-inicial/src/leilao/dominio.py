@@ -26,12 +26,15 @@ class Leilao:
 
 
     def propoe(self, lance: Lance):
-        if lance.valor > self.maior_lance:
-            self.maior_lance = lance.valor
-        if lance.valor < self.menor_lance:
-            self.menor_lance = lance.valor 
+        if not self.__lances or self.__lances[-1].usuario != lance.usuario and lance.valor > self.__lances[-1].valor:
+            if lance.valor > self.maior_lance:
+                self.maior_lance = lance.valor
+            if lance.valor < self.menor_lance:
+                self.menor_lance = lance.valor 
 
-        self.__lances.append(lance)
+            self.__lances.append(lance)
+        else:
+            raise ValueError('O mesmo usuário não pode propor 2 lances seguidos')
 
     @property
     def lances(self):
